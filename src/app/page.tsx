@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { get } from '@vercel/edge-config';
 
 interface Label {
   id: number;
@@ -31,37 +32,25 @@ export default function Home() {
   const [countdown, setCountdown] = useState<number | null>(null); // For countdown
   const [parsedBody, setParsedBody] = useState<string | null>(null); // For parsed body
 
-  async function fetchIssues() {
-    try {
-      const response = await fetch(
-        "https://api.github.com/search/issues?q=is:issue%20repo:calcom/cal.com%20state:open"
-      );
-
-      if (!response.ok) {
-        if (response.status === 403) {
-          setError("Rate limit exceeded. Please wait.");
-          startCountdown();
+  useEffect(() => {
+    const fetchIssue = async () => {
+      try {
+        const fetchedIssue = await get<Issue>('current-issue');
+        
+        if (fetchedIssue) {
+          setIssue(fetchedIssue);
         } else {
-          throw new Error(`Error: ${response.status}`);
+          setError("No issue found.");
         }
-        return;
+      } catch (err) {
+        setError((err as Error).message);
       }
+    };
 
-      const data = await response.json();
-
-      if (data.items && data.items.length > 0) {
-        const randomIssue = data.items[Math.floor(Math.random() * data.items.length)];
-        setIssue(randomIssue);
-      } else {
-        setError("No open issues found.");
-      }
-    } catch (err) {
-      setError((err as Error).message);
-    }
-  }
+    fetchIssue();
+  }, []);
 
   useEffect(() => {
-    fetchIssues()
     if (issue && issue.body) {
       setParsedBody(issue.body);
     }
@@ -173,7 +162,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <div className="prose max-w-none">
-              {showFullText ? parsedBody! : parsedBody?.substring(0, 300) + '...'}
+                {showFullText ? parsedBody! : parsedBody?.substring(0, 300) + '...'}
               </div>
             
               <button
