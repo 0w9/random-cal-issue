@@ -25,27 +25,27 @@ export async function GET() {
             console.log("API Key:", KEY);
 
 
-            const updateEdgeConfig = await fetch(
-                'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
-                {
-                    method: 'PATCH',
-                    headers: {
-                        'Authorization': `Bearer ${KEY}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        items: [
-                            {
-                                operation: 'update',
-                                key: 'current-issue',
-                                value: randomIssue,
-                            },
-                        ],
-                    }),
-                },
-            );
-            const result = await updateEdgeConfig.json();
-            console.log(result);
+            // const updateEdgeConfig = await fetch(
+            //     'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
+            //     {
+            //         method: 'PATCH',
+            //         headers: {
+            //             'Authorization': `Bearer ${KEY}`,
+            //             'Content-Type': 'application/json',
+            //         },
+            //         body: JSON.stringify({
+            //             items: [
+            //                 {
+            //                     operation: 'update',
+            //                     key: 'current-issue',
+            //                     value: randomIssue,
+            //                 },
+            //             ],
+            //         }),
+            //     },
+            // );
+            // const result = await updateEdgeConfig.json();
+            // console.log(result);
         
 
             return NextResponse.json(randomIssue);
