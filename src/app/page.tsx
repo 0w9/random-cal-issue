@@ -34,7 +34,11 @@ export default function Home() {
   useEffect(() => {
     const fetchIssue = async () => {
       try {
-        const fetchedIssue = await get<Issue>('current-issue');
+        const fetchedIssueRequest = await fetch("/api", {
+          method: "GET"
+        });
+
+        const fetchedIssue = (await fetchedIssueRequest.json()).value
         
         if (fetchedIssue) {
           setIssue(fetchedIssue);
