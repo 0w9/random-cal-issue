@@ -46,7 +46,7 @@ export async function GET() {
             );
             const result = await updateEdgeConfig.json();
             console.log(result);
-        } 
+        
 
             return NextResponse.json(randomIssue);
         } else {
