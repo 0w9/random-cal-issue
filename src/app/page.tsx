@@ -29,7 +29,7 @@ export default function Home() {
   const [issue, setIssue] = useState<Issue | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showFullText, setShowFullText] = useState(false); // For showing full text
-  const [countdown, setCountdown] = useState<number | null>(null); // For countdown
+  const [countdown] = useState<number | null>(null); // For countdown
   const [parsedBody, setParsedBody] = useState<string | null>(null); // For parsed body
 
   useEffect(() => {
