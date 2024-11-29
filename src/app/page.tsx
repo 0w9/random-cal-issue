@@ -167,22 +167,22 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-  className="text-gray-700 mb-4 overflow-hidden max-h-40"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.8 }}
->
-  <div className="prose max-w-none">
-    {showFullText ? parsedBody! : parsedBody?.substring(0, 300) + '...'}
-  </div>
-  <button
-    onClick={toggleText}
-    className="mt-2 text-blue-600 hover:text-blue-800"
-  >
-    {showFullText ? "Show Less" : "Show More"}
-  </button>
-</motion.div>
-
+              className="text-gray-700 mb-4 overflow-hidden max-h-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="prose max-w-none">
+              {showFullText ? parsedBody! : parsedBody?.substring(0, 300) + '...'}
+              </div>
+            
+              <button
+                onClick={toggleText}
+                className="mt-2 text-blue-600 hover:text-blue-800"
+              >
+                {showFullText ? "Show Less" : "Show More"}
+              </button>
+            </motion.div>
 
             <motion.p
               className="text-gray-600"
