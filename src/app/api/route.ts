@@ -17,14 +17,14 @@ export async function POST() {
     const data = await response.json();
     if (data.items && data.items.length > 0) {
       const randomIssue = data.items[Math.floor(Math.random() * data.items.length)];
-      console.log(process.env.VERCEL_API_KEY)
+      const KEY = process.env.VERCEL_API_KEY
       try {
         const updateEdgeConfig = await fetch(
           'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
           {
             method: 'PATCH',
             headers: {
-              'Authorization': `Bearer ${process.env.VERCEL_API_KEY}`,
+              'Authorization': `Bearer ${KEY}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
