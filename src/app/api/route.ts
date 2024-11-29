@@ -23,7 +23,7 @@ export async function GET() {
           {
             method: 'PATCH',
             headers: {
-              Authorization: `Bearer ${process.env.VERCEL_API_KEY}`,
+              'Authorization': `Bearer ${process.env.VERCEL_API_KEY}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
