@@ -66,19 +66,6 @@ export default function Home() {
     setShowFullText(!showFullText);
   };
 
-  const startCountdown = () => {
-    let timeLeft = 60;
-    setCountdown(timeLeft);
-    const interval = setInterval(() => {
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-      } else {
-        timeLeft--;
-        setCountdown(timeLeft);
-      }
-    }, 1000);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-6 flex justify-center items-center font-sans">
       <div className="max-w-4xl w-full">
