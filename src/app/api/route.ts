@@ -17,8 +17,31 @@ export async function GET() {
     if (data.items && data.items.length > 0) {
       const randomIssue = data.items[Math.floor(Math.random() * data.items.length)];
       
-      const edgeStore = new Map();
-      edgeStore.set('current-issue', randomIssue);
+      try {
+        const updateEdgeConfig = await fetch(
+          'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
+          {
+            method: 'PATCH',
+            headers: {
+              Authorization: `Bearer ${process.env.VERCEL_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              items: [
+                {
+                  operation: 'update',
+                  key: 'current-issue',
+                  value: randomIssue,
+                },
+              ],
+            }),
+          },
+        );
+        const result = await updateEdgeConfig.json();
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
 
       return NextResponse.json(randomIssue);
     } else {
