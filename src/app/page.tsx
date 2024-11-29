@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { get } from '@vercel/edge-config';
 
 interface Label {
   id: number;

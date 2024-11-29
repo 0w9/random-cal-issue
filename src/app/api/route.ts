@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { get } from '@vercel/edge-config';
 
-export async function GET() {
+export async function POST() {
   try {
     const response = await fetch(
       "https://api.github.com/search/issues?q=is:issue%20repo:calcom/cal.com%20state:open"
@@ -50,4 +51,13 @@ export async function GET() {
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });
   }
+}
+
+
+export async function GET() {
+  const val = await get('current-issue');
+ 
+  return NextResponse.json({
+    value: val,
+  });
 }
