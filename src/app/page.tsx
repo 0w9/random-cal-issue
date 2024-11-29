@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { marked } from "marked"
 
 interface Label {
   id: number;
@@ -64,7 +63,7 @@ export default function Home() {
   useEffect(() => {
     fetchIssues()
     if (issue && issue.body) {
-      setParsedBody(marked(issue.body));
+      setParsedBody(issue.body);
     }
   }, [issue]);
 
@@ -168,18 +167,22 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className="text-gray-700 mb-4 overflow-hidden max-h-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div
-                className="prose max-w-none"
-                dangerouslySetInnerHTML={{
-                  __html: showFullText ? parsedBody! : parsedBody?.substring(0, 300) + '...',
-                }}
-              />
-            </motion.div>
+  className="text-gray-700 mb-4 overflow-hidden max-h-40"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+>
+  <div className="prose max-w-none">
+    {showFullText ? parsedBody! : parsedBody?.substring(0, 300) + '...'}
+  </div>
+  <button
+    onClick={toggleText}
+    className="mt-2 text-blue-600 hover:text-blue-800"
+  >
+    {showFullText ? "Show Less" : "Show More"}
+  </button>
+</motion.div>
+
 
             <motion.p
               className="text-gray-600"
@@ -201,13 +204,6 @@ export default function Home() {
             >
               View on GitHub
             </motion.a>
-
-            <button
-              onClick={toggleText}
-              className="mt-4 text-blue-600 hover:text-blue-800"
-            >
-              {showFullText ? "Show Less" : "Show All"}
-            </button>
           </motion.div>
         ) : (
           !error && <p className="text-gray-600">Loading issue...</p>
