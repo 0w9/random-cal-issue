@@ -19,37 +19,34 @@ export async function GET() {
             
             const KEY = process.env.VERCEL_API_KEY;
 
-
             if (!KEY) {
                 return NextResponse.json({ error: "API key is missing" }, { status: 500 });
             }
             console.log("API Key:", KEY);
 
-            try {
-                const updateEdgeConfig = await fetch(
-                    'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
-                    {
-                        method: 'PATCH',
-                        headers: {
-                            'Authorization': `Bearer ${KEY}`,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            items: [
-                                {
-                                    operation: 'update',
-                                    key: 'current-issue',
-                                    value: randomIssue,
-                                },
-                            ],
-                        }),
+
+            const updateEdgeConfig = await fetch(
+                'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${KEY}`,
+                        'Content-Type': 'application/json',
                     },
-                );
-                const result = await updateEdgeConfig.json();
-                console.log(result);
-            } catch (error) {
-                console.error("Failed to update edge config:", error);
-            }
+                    body: JSON.stringify({
+                        items: [
+                            {
+                                operation: 'update',
+                                key: 'current-issue',
+                                value: randomIssue,
+                            },
+                        ],
+                    }),
+                },
+            );
+            const result = await updateEdgeConfig.json();
+            console.log(result);
+        } 
 
             return NextResponse.json(randomIssue);
         } else {
