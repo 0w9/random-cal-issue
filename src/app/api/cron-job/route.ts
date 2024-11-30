@@ -27,7 +27,7 @@ export async function GET() {
             console.log(auth); // WORKS
 
             const updateEdgeConfig = await fetch(
-                'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
+                'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items?teamId=team_FfkRNtECkeH5Gvuyzi3Op5a3',
                 {
                     method: 'PATCH',
                     headers: {
