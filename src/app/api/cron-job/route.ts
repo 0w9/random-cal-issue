@@ -22,7 +22,10 @@ export async function GET() {
             if (!KEY) {
                 return NextResponse.json({ error: "API key is missing" }, { status: 500 });
             }
-            console.log("API Key:", KEY);
+
+            const auth = `Bearer ${KEY}`;
+            console.log(auth);
+
 
 
             // const updateEdgeConfig = await fetch(
