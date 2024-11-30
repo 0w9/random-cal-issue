@@ -23,17 +23,15 @@ export async function GET() {
                 return NextResponse.json({ error: "API key is missing" }, { status: 500 });
             }
 
-            const auth = `Bearer ${KEY}`;
-            console.log(auth);
-
-
+            const auth = `Bearer d22ZWQYcuUvswfKBmBwTseN`;
+            console.log(auth); // WORKS
 
             const updateEdgeConfig = await fetch(
                 'https://api.vercel.com/v1/edge-config/ecfg_kbfpbyx3xdbxb74feaohl3prncfp/items',
                 {
                     method: 'PATCH',
                     headers: {
-                        'Authorization': auth,
+                        'Authorization': auth, // Does not work
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
